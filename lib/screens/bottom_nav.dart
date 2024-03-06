@@ -31,7 +31,7 @@ class _HomePageState extends State<bottom_nav> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Wether Forecaster'),
+        title: Text('Weather Forecaster'),
         centerTitle: true,
       ),
       body: _children[_currentIndex],
