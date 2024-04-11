@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:forecast_master/screens/wheather_detail.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import '../utils/Icons_weather.dart';
 import '../utils/consts.dart';
 
 class WeatherSearchPage extends StatefulWidget {
@@ -10,20 +12,10 @@ class WeatherSearchPage extends StatefulWidget {
 }
 
 class _WeatherSearchPageState extends State<WeatherSearchPage> {
-  final List<String> _topCities = [
-    'Hyderabad',
-    'Amaravati',
-    'New Delhi',
-    'Bangalore',
-    'Mumbai',
-    'Chennai',
-    'Kolkata',
-    'Jaipur',
-    'Vijayawada',
-    'Bhopal'
-  ];
-
   List<Map<String, dynamic>> _weatherDataList = [];
+
+
+
 
   @override
   void initState() {
@@ -33,7 +25,7 @@ class _WeatherSearchPageState extends State<WeatherSearchPage> {
 
   Future<void> _fetchWeatherForTopCities() async {
 
-    for (String city in _topCities) {
+    for (String city in topCities) {
       final String apiUrl =
           'http://api.openweathermap.org/data/2.5/weather?q=$city&appid=$OPENWEATHER_API_KEY&units=metric';
 
@@ -45,7 +37,7 @@ class _WeatherSearchPageState extends State<WeatherSearchPage> {
           _weatherDataList.add({
             'city': city,
             'weatherDescription': jsonData['weather'][0]['description'],
-            'weatherIcon': jsonData['weather'][0]['icon'],
+            'id': jsonData['weather'][0]['id'],
             'currentTemp': jsonData['main']['temp'],
             'maxTemp': jsonData['main']['temp_max'],
             'minTemp': jsonData['main']['temp_min'],
@@ -74,51 +66,62 @@ class _WeatherSearchPageState extends State<WeatherSearchPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Top 10 Cities Weather'),
+        backgroundColor: Color(0xFF93A3B1).withOpacity(0.5),
         actions: [
           IconButton(
             icon: Icon(Icons.search),
             onPressed: () {
               showSearch(
                 context: context,
-                delegate: WeatherSearchDelegate(_topCities),
+                delegate: WeatherSearchDelegate(topCities),
               );
             },
           ),
         ],
       ),
-      body: ListView.builder(
-        itemCount: _searchResults.isEmpty
-            ? _weatherDataList.length
-            : _searchResults.length,
-        itemBuilder: (BuildContext context, int index) {
-          final weatherData = _searchResults.isEmpty
-              ? _weatherDataList[index]
-              : _searchResults[index];
-          return ListTile(
-            leading: Image.network(
-                'http://openweathermap.org/img/w/${weatherData['weatherIcon']}.png'),
-            title: Text(weatherData['city']),
-            subtitle: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Weather: ${weatherData['weatherDescription']}', style: TextStyle(
-
-                ),
-                ),
-                Text(
-                  'Current Temperature: ${weatherData['currentTemp']}°C',
-                ),
-                Text(
-                  'Max Temperature: ${weatherData['maxTemp']}°C',
-                ),
-                Text(
-                  'Min Temperature: ${weatherData['minTemp']}°C',
-                ),
-              ],
-            ),
-          );
-        },
+      body: Container(
+        color: Color(0xFF93A3B1).withOpacity(0.5),
+        child: ListView.builder(
+          itemCount: _searchResults.isEmpty
+              ? _weatherDataList.length
+              : _searchResults.length,
+          itemBuilder: (BuildContext context, int index) {
+            final weatherData = _searchResults.isEmpty
+                ? _weatherDataList[index]
+                : _searchResults[index];
+            return ListTile(
+              leading: WeatherIcon(weatherCode: weatherData['id'].toString() ?? ""),
+              title: Text(weatherData['city']),
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Weather: ${weatherData['weatherDescription']}',
+                    style: TextStyle(),
+                  ),
+                  Text(
+                    'Current Temperature: ${weatherData['currentTemp']}°C',
+                  ),
+                  Text(
+                    'Max Temperature: ${weatherData['maxTemp']}°C',
+                  ),
+                  Text(
+                    'Min Temperature: ${weatherData['minTemp']}°C',
+                  ),
+                ],
+              ),
+              onTap: () {
+                // Navigate to the details page when a list item is tapped
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => wheather_detail(city: weatherData['city']),
+                  ),
+                );
+              },
+            );
+          },
+        ),
       ),
     );
   }
@@ -161,7 +164,8 @@ class WeatherSearchDelegate extends SearchDelegate<String> {
     final suggestionList = query.isEmpty
         ? []
         : topCities
-        .where((city) => city.toLowerCase().startsWith(query.toLowerCase()))
+        .where((city) =>
+        city.toLowerCase().startsWith(query.toLowerCase()))
         .toList();
 
     return ListView.builder(
@@ -170,7 +174,14 @@ class WeatherSearchDelegate extends SearchDelegate<String> {
         return ListTile(
           title: Text(suggestionList[index]),
           onTap: () {
-            close(context, suggestionList[index]);
+            // Navigate to the details page when a suggestion is tapped
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    wheather_detail(city: suggestionList[index]),
+              ),
+            );
           },
         );
       },
