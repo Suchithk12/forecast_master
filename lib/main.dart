@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:forecast_master/screens/bottom_nav.dart';
-import 'package:forecast_master/screens/home_page.dart';
-import 'package:forecast_master/screens/landing_page.dart';
+import 'package:ForecastWise/screens/bottom_nav.dart';
+import 'package:ForecastWise/screens/home_page.dart';
+import 'package:ForecastWise/screens/landing_page.dart';
 
 void main() {
   runApp(const MyApp());

@@ -1,8 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:forecast_master/screens/week_forcast.dart';
-import 'package:forecast_master/utils/consts.dart';
+import 'package:ForecastWise/screens/week_forcast.dart';
+import 'package:ForecastWise/utils/consts.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:weather/weather.dart';
@@ -77,32 +77,48 @@ class _homepageState extends State<homepage> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(45),
               ),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Stack(
-                      children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            _weathericon(),
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.02,
-                            ),
-                            _locationheader(),
-                            _currenttemp(),
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.02,
-                            ),
-                            _extrainfo(),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+              child: Column(
+                children: [
+                  Stack(
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        // mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          _weathericon(),
+                          SizedBox(
+                            height: MediaQuery.sizeOf(context).height * 0.01,
+                          ),
+                          _locationheader(),
+                          _currenttemp(),
+                          SizedBox(
+                            height: MediaQuery.sizeOf(context).height * 0.01,
+                          ),
+                          _extrainfo(),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+
+                              Text("Tap To View This Week's Weather", style: GoogleFonts.poppins().copyWith(
+                                color: Colors.white,
+                                fontSize: 12
+                              ),),
+
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Icon(Icons.arrow_circle_right),
+                              )
+                            ],
+                          ),
+                          SizedBox(
+                            height: MediaQuery.sizeOf(context).height * 0.01,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
           ),
@@ -236,11 +252,11 @@ class _homepageState extends State<homepage> {
             children: [
               Text(
                 "Max: ${_weather?.tempMax?.celsius?.toStringAsFixed(0)}°C",
-                style: GoogleFonts.poppins(fontSize: 18,fontWeight: FontWeight.bold, color: Colors.white),
+                style: GoogleFonts.poppins(fontSize: 17,fontWeight: FontWeight.bold, color: Colors.white),
               ),
               Text(
                 "Min: ${_weather?.tempMin?.celsius?.toStringAsFixed(0)}°C",
-                style: GoogleFonts.poppins(fontSize: 18,fontWeight: FontWeight.bold, color: Colors.white),
+                style: GoogleFonts.poppins(fontSize: 17,fontWeight: FontWeight.bold, color: Colors.white),
               )
             ],
           ),
@@ -250,11 +266,11 @@ class _homepageState extends State<homepage> {
             children: [
               Text(
                 "Wind: ${_weather?.windSpeed?.toStringAsFixed(0)} m/s",
-                style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
               ),
               Text(
                 "Humidity: ${_weather?.humidity?.toStringAsFixed(0)} %",
-                style: GoogleFonts.poppins(fontSize: 18,fontWeight: FontWeight.bold,  color: Colors.white),
+                style: GoogleFonts.poppins(fontSize: 16,fontWeight: FontWeight.bold,  color: Colors.white),
               )
             ],
           ),

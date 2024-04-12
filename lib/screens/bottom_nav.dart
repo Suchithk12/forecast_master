@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:forecast_master/screens/home_page.dart';
-import 'package:forecast_master/screens/search_screen.dart';
+import 'package:ForecastWise/screens/home_page.dart';
+import 'package:ForecastWise/screens/search_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_svg/svg.dart';
 

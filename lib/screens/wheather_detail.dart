@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:forecast_master/screens/week_forcast.dart';
+import 'package:ForecastWise/screens/week_forcast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:weather/weather.dart';
@@ -79,7 +79,7 @@ class _wheather_detailState extends State<wheather_detail> {
               child: Column(
                 children: [
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.05,
+                    height: MediaQuery.of(context).size.height * 0.01,
                   ),
                   Card(
                     elevation: 15,
@@ -97,6 +97,24 @@ class _wheather_detailState extends State<wheather_detail> {
                           SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                           SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                           _extrainfo(),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+
+                              Text("Tap To View This Week's Weather", style: GoogleFonts.poppins().copyWith(
+                                  color: Colors.white,
+                                  fontSize: 12
+                              ),),
+
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Icon(Icons.arrow_circle_right),
+                              )
+                            ],
+                          ),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.03,
+                          ),
                         ],
                       ),
                     ),
