@@ -48,70 +48,68 @@ class _wheather_detailState extends State<wheather_detail> {
         ),
       );
     }
-    return Container(
-      color: Color(0xFF93A3B1).withOpacity(0.5),
-      child: Center(
-        child: GestureDetector(
-          onTap: () {
-            // Navigate to the WeekForecast screen when the card is tapped
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) =>
-                    week_forcast(city: _weather!.areaName ??
-                        'Unknown'), // Provide a default value or handle null city names
-              ),
-            );
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Weather Details of ${widget.city}', style: GoogleFonts.poppins().copyWith(fontWeight: FontWeight.bold),),
+        backgroundColor: Color(0xFF93A3B1).withOpacity(0.5),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context); // Navigate back when the back button is pressed
           },
-          child: Container(
-            width: MediaQuery
-                .of(context)
-                .size
-                .width * 0.85,
-            child: Column(
-              children: [
-                SizedBox(
-                  height: MediaQuery
-                      .sizeOf(context)
-                      .height * 0.1,
+        ),
+      ),
+      body: Container(
+        color: Color(0xFF93A3B1).withOpacity(0.5),
+        child: Center(
+          child: GestureDetector(
+            onTap: () {
+              // Navigate to the WeekForecast screen when the card is tapped
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => week_forcast(
+                    city: _weather!.areaName ?? 'Unknown',
+                  ), // Provide a default value or handle null city names
                 ),
-                Card(
-                  elevation: 15,
-                  color: Color(0xFF93A3B1).withOpacity(0.2),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(45),
+              );
+            },
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.85,
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.05,
                   ),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        _weathericon(),
-                        SizedBox(height: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.02),
-                        _locationheader(),
-                        _currenttemp(),
-                        SizedBox(height: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.02),
-                        SizedBox(height: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.01),
-                        _extrainfo(),
-                      ],
+                  Card(
+                    elevation: 15,
+                    color: Color(0xFF93A3B1).withOpacity(0.2),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(45),
+                    ),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          _weathericon(),
+                          SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                          _locationheader(),
+                          _currenttemp(),
+                          SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                          SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                          _extrainfo(),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-
-              ],
+                ],
+              ),
             ),
           ),
         ),
       ),
     );
   }
+
 
 
   Widget _locationheader() {

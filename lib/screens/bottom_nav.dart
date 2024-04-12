@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:forecast_master/screens/home_page.dart';
 import 'package:forecast_master/screens/search_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_svg/svg.dart';
 
 import 'week_forcast.dart';
 
@@ -45,17 +46,20 @@ class _HomePageState extends State<bottom_nav> {
         onTap: onTabTapped,
         currentIndex: _currentIndex,
         elevation: 0, // Remove the black shadow
-        items: const [
+        items:  [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: SvgPicture.asset('assets/svgs/Vectorhome-icon.svg',color: _currentIndex == 0 ? Color(0xFF93A3B1).withOpacity(1) : Colors.grey,),
+
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.search),
+            icon: SvgPicture.asset('assets/svgs/search-bar-search.svg',color: _currentIndex == 0 ? Color(0xFF93A3B1).withOpacity(1) : Colors.grey,),
             label: 'Search',
           ),
           // Add more items as needed
         ],
+        selectedLabelStyle: GoogleFonts.poppins(fontWeight: FontWeight.bold), // Adjust the selected label style as needed
+        unselectedLabelStyle: GoogleFonts.poppins(fontWeight: FontWeight.normal),
       ),
     );
   }

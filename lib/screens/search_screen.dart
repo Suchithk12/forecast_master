@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:forecast_master/screens/wheather_detail.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -65,7 +66,7 @@ class _WeatherSearchPageState extends State<WeatherSearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Top 10 Cities Weather'),
+        title: Text('Top 10 Cities Weather', style: GoogleFonts.poppins(),),
         backgroundColor: Color(0xFF93A3B1).withOpacity(0.5),
         actions: [
           IconButton(
@@ -91,22 +92,25 @@ class _WeatherSearchPageState extends State<WeatherSearchPage> {
                 : _searchResults[index];
             return ListTile(
               leading: WeatherIcon(weatherCode: weatherData['id'].toString() ?? ""),
-              title: Text(weatherData['city']),
+              title: Text(weatherData['city'], style: GoogleFonts.poppins()),
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     'Weather: ${weatherData['weatherDescription']}',
-                    style: TextStyle(),
+                    style: GoogleFonts.poppins(),
                   ),
                   Text(
                     'Current Temperature: ${weatherData['currentTemp']}°C',
+                    style: GoogleFonts.poppins(),
                   ),
                   Text(
                     'Max Temperature: ${weatherData['maxTemp']}°C',
+                      style: GoogleFonts.poppins()
                   ),
                   Text(
                     'Min Temperature: ${weatherData['minTemp']}°C',
+                      style: GoogleFonts.poppins()
                   ),
                 ],
               ),
